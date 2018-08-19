@@ -1,0 +1,29 @@
+{
+  "name": "lirn-bot",
+  "version": "0.0.1",
+  "description": "LIRI is a Language Interpretation Recognition Interface",
+  "main": "lirn.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arthurclaytonproductions/lirn-bot.git"
+  },
+  "keywords": [
+    "twitter",
+    "spotify",
+    "IMDB"
+  ],
+  "author": "Arthur Clayton",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arthurclaytonproductions/lirn-bot/issues"
+  },
+  "homepage": "https://github.com/arthurclaytonproductions/lirn-bot#readme",
+  "dependencies": {
+    "request": "^2.88.0",
+    "spotify": "^0.3.0",
+    "twitter": "^1.7.1"
+  }
+}
