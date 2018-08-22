@@ -9,8 +9,8 @@ var keys = require('./keys');
 var uInput = process.argv[2];
 var uSelection = process.argv[3];
 
-//var queryUrl = 'http://www.omdbapi.com/?apikey=c7ea6710&t=' + uSelection + '&y=&plot=short&r=json'
-var queryUrl = "http://www.omdbapi.com/?t=" + uSelection + "&y=&plot=short&r=json";
+var queryUrl = 'http://www.omdbapi.com/?apikey=c7ea6710&t=' + uSelection + '&y=&plot=short&r=json'
+
 //twitter function data
 function twitdata(){
 var client = new Twitter(keys.twitterKeys);
