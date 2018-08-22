@@ -9,7 +9,8 @@ var keys = require('./keys');
 var uInput = process.argv[2];
 var uSelection = process.argv[3];
 
-
+//var queryUrl = 'http://www.omdbapi.com/?apikey=c7ea6710&t=' + uSelection + '&y=&plot=short&r=json'
+var queryUrl = "http://www.omdbapi.com/?t=" + uSelection + "&y=&plot=short&r=json";
 //twitter function data
 function twitdata(){
 var client = new Twitter(keys.twitterKeys);
@@ -30,7 +31,7 @@ client.get('statuses/user_timeline', params, function(error, tweets, response){
       }
     });   
 };
-
+//spotify functions
 function spotifyData(){
     if(process.argv.length >=4 || typeof uSelection === 'string'){
     var spotify = new Spotify(keys.spotifyKeys);
@@ -39,25 +40,59 @@ spotify.search({ type: 'track', query: uSelection }, function(err, data) {
         spotifyInfo(data);
     }
     else {
-        console.log('Error ' + err);
-        return;
+        return console.log('Error ' + err);
+        
       }
-    
+     
   });
+  
 }
+    else if(process.argv.length < 4){
+    var spotify = new Spotify(keys.spotifyKeys);
+    spotify.search({ type: 'track', query: 'The Sign Ace of Base' }, function(err, data) {
+        if (!err) {
+        spotifyInfo(data);;
+        }
+     else{
+        return console.log('Error occurred: ' + err);
+     }  
+        
+      });   
+  }
 };
 
 function spotifyInfo(data){
-    var artist = 
-    var album = 
-    var song = 
-    var songLink = 
+    var artist = data.tracks.items[0].artists[0].name;
+    var album = data.tracks.items[0].album.name;
+    var song = data.tracks.items[0].name;
+    var songLink = data.tracks.items[0].external_urls.spotify;
     console.log('Artist ' + artist);
     console.log('Album ' + album);
     console.log('Track ' + song);
     console.log('Link to song ' + songLink);
     
 };
+
+// ombd functions
+
+function ombdData(){
+if(process.argv.length >=4 || typeof uSelection === 'string'){
+request(queryUrl, function(error, response, body) {
+
+    // If the request is successful
+    if (!error && response.statusCode === 200) {
+  
+      // Parse the body of the site and recover just the imdbRating
+      // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
+      console.log("Year: " + JSON.parse(body).year);
+    }
+    else{
+        console.log('error:', error);
+    }
+  });
+}};
+
+
 
 switch(uInput){
 case 'my-tweets':
@@ -67,17 +102,9 @@ break;
 case 'spotify-this-song':
 spotifyData();
 break;
-}
-// test function to grab data to be used in the function spotifyInfo
-function t(){
-    var spotify = new Spotify(keys.spotifyKeys);
-spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
-    if (err) {
-      return console.log('Error occurred: ' + err);
-    }
-   
-    console.log(JSON.stringify(data, null, 2)); 
-  });
-};
 
-t();
+case 'movie-this':
+ombdData();
+break;
+}
+
