@@ -17,11 +17,11 @@ function twitdata(){
 var client = new Twitter(keys.twitterKeys);
 var params = {
     screen_name: 'Arthur Clayton',
-    count: 21,
+    count: 5,
 };
 client.get('statuses/user_timeline', params, function(error, tweets, response){
     if (!error) {
-        for(var i = 1; i <= 20; i++){
+        for(var i = 1; i <= 4; i++){
         console.log('Tweet', [i]);
         console.log(tweets[i]['text']);
         console.log('----------------------------------------------------------------');
